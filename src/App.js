@@ -1,6 +1,6 @@
 
 import './App.css';
-import LandingPage from './pages/LandingPage/LandingPage';
+import Auth from './pages/Auth/Auth';
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
     return (
 
       <>
-        <LandingPage />
+        <Auth />
       </>
     )
   }

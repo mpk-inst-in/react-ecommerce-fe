@@ -1,0 +1,31 @@
+
+
+.login{
+  margin-top: 100px;
+}
+
+.login-wrapper{
+  width: 600px;
+  margin: 50px auto ;
+
+}
+
+.home-title{
+
+  font-size: 40px;
+  text-align: center;
+
+}
+
+.input-group{
+
+  margin: 25px;
+
+}
+
+.auth-msg {
+
+  text-align: center;
+  cursor: pointer;
+}
+
