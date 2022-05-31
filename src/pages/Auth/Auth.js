@@ -2,18 +2,110 @@ import './auth.css';
 
 import { useState } from "react";
 import Navbar from '../../components/Navbar/Navbar';
+import { AxiosInstance } from '../../util/AxiosInstance';
 
 const Auth = () => {
 
 
-  const [showSignup, setShowSignup] = useState(true);
+  const [showSignup, setShowSignup] = useState(false);
+
+  const [username, setusername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [signupSuccess, setSignupSuccess] = useState(false);
+
+  const [authResponse, setAuthResponse] = useState('');
+
 
   const toggleHandler = () => {
 
 
+    clearState();
     setShowSignup(!showSignup);
 
   }
+
+  const signInHandler = async () => {
+
+    // capture username and password 
+    // submit to the API server
+
+    console.log('sign in clicked ...');
+
+    console.log({ username, password });
+
+    const user = { username, password };
+
+
+    if (!username || !password) {
+
+      setAuthResponse('User Name,  and Password  are required !!');
+      setSignupSuccess(false);
+      return;
+    }
+
+
+    try {
+
+      const response = await AxiosInstance.post('/auth/signin', user)
+      console.log(response);
+      alert('User signed in...');
+
+    } catch (error) {
+
+      console.log(error);
+    }
+
+
+  }
+
+
+  const clearState = () => {
+
+    setusername('');
+    setPassword('');
+    setEmail('');
+    setShowSignup(false);
+    setSignupSuccess(false);
+    setAuthResponse('');
+
+  }
+
+  const signupHandler = async () => {
+
+
+    const user = { username, password, email };
+
+
+    if (!username || !password || !email) {
+
+      setAuthResponse('User Name, Password and Email are required !!');
+      setSignupSuccess(false);
+      return;
+    }
+
+    try {
+
+      const response = await AxiosInstance.post('/auth/signup', user);
+      console.log(response);
+
+      clearState();
+
+      setSignupSuccess(true);
+      setAuthResponse(response.data.message);
+
+    } catch (error) {
+
+      console.log(error);
+      setSignupSuccess(false);
+      setAuthResponse(error.response.data.message)
+
+    }
+
+
+  }
+
 
   const renderComponent = () => {
 
@@ -28,21 +120,31 @@ const Auth = () => {
               <div className="login-wrapper">
                 <h4 className="text-center">{showSignup ? 'Sign Up' : 'Sign In'}</h4>
                 <div className="input-group">
-                  <input type="text" className="form-control" placeholder="User Name" autoFocus autoComplete="off " />
+                  <input type="text" className="form-control" placeholder="User Name" autoFocus autoComplete="off " value={username} onChange={(e) => setusername(e.target.value)} />
                 </div>
                 <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Password" autoComplete="off " />
+                  <input type="password" className="form-control" placeholder="Password" autoComplete="off " value={password} onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 {showSignup && <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Email" autoComplete="off " />
+                  <input type="text" className="form-control" placeholder="Email" autoComplete="off " value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>}
                 <div className="input-group">
-                  <input type="submit" className="form-control btn btn-primary" value={showSignup ? 'Sign Up' : 'Login'} />
+                  <input type="submit" className="form-control btn btn-primary" value={showSignup ? 'Sign Up' : 'Login'}
+                    onClick={showSignup ? signupHandler : signInHandler}
+
+                  />
                 </div>
 
                 <div className="auth-msg" onClick={toggleHandler}>
                   {showSignup ? 'Already have an Account? Login' : "Don't have an Account? Sign up"}
                 </div>
+
+                {authResponse && <div className={signupSuccess ? "auth-response text-info text-center" : "auth-response text-danger text-center"}>
+                  {authResponse}
+                </div>
+
+                }
+
               </div>
             </div>
           </div>

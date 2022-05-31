@@ -10,5 +10,5 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 
 export const AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 5000,
+  timeout: 15000,
 })
