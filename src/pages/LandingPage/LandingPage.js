@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 
-import { AxiosInstance } from '../../util/AxiosInstance';
+import { getAllCategories } from '../../api/category';
 
 import './lp.css';
-
-
 
 const LandingPage = () => {
 
@@ -17,7 +15,7 @@ const LandingPage = () => {
 
     try {
 
-      const result = await AxiosInstance.get('/categories');
+      const result = await getAllCategories();
       console.log(result);
       setCategories(result.data);
 
@@ -46,8 +44,6 @@ const LandingPage = () => {
           <div className="row">
             <div className="col-12">
               <h2 className="home-title">Welcome to Online Shopping...</h2>
-
-
             </div>
             <div className="col-12">
               <div className="category-list">

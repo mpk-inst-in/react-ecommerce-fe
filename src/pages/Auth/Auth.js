@@ -2,7 +2,9 @@ import './auth.css';
 
 import { useState } from "react";
 import Navbar from '../../components/Navbar/Navbar';
-import { AxiosInstance } from '../../util/AxiosInstance';
+
+import { signIn, signUp } from '../../api/auth';
+
 
 const Auth = () => {
 
@@ -31,9 +33,6 @@ const Auth = () => {
     // capture username and password 
     // submit to the API server
 
-    console.log('sign in clicked ...');
-
-    console.log({ username, password });
 
     const user = { username, password };
 
@@ -48,7 +47,7 @@ const Auth = () => {
 
     try {
 
-      const response = await AxiosInstance.post('/auth/signin', user)
+      const response = await signIn(user);
       console.log(response);
       alert('User signed in...');
 
@@ -87,19 +86,19 @@ const Auth = () => {
 
     try {
 
-      const response = await AxiosInstance.post('/auth/signup', user);
-      console.log(response);
+      const { data } = await signUp(user);
+      console.log(data);
 
       clearState();
 
       setSignupSuccess(true);
-      setAuthResponse(response.data.message);
+      setAuthResponse(data.message);
 
     } catch (error) {
 
       console.log(error);
       setSignupSuccess(false);
-      setAuthResponse(error.response.data.message)
+      setAuthResponse(error.response.data.message);
 
     }
 
