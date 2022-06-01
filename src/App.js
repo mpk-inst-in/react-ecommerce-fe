@@ -1,6 +1,6 @@
 
 import './App.css';
-import Auth from './pages/Auth/Auth';
+import AppRoutes from './components/routes/AppRoutes';
 
 function App() {
 
@@ -10,7 +10,7 @@ function App() {
     return (
 
       <>
-        <Auth />
+        <AppRoutes />
       </>
     )
   }
