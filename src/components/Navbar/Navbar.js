@@ -1,8 +1,31 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import { signOut } from '../../api/auth';
+
 import './navbar.css';
 
 
 const Navbar = () => {
 
+
+  const [user, setUser] = useState('Guest');
+
+  useEffect(() => {
+
+    const username = localStorage.getItem('username');
+    username && setUser(username);
+
+  }, [user])
+
+
+  const logoutHandler = () => {
+
+    console.log("Log out invoked ....");
+    signOut();
+    setUser('Guest');
+
+  }
 
   const renderComponent = () => {
 
@@ -12,16 +35,19 @@ const Navbar = () => {
           <div className='row'>
             <div className='header-wrapper'>
               <div className="logo">
-                <a href='/' className='text-decoration-none'> ECommerce</a>
+                <Link to='/' className='text-decoration-none'> ECommerce</Link>
               </div>
               <div className="user-actions">
-                <a href="/cart" >Cart</a>
-                <div className="user-intro">Guest</div>
+                <Link to="/cart" >Cart</Link>
+                <div className="user-intro">{user}</div>
 
-                <div className="login-btn">
+                {
+                  user !== 'Guest' ? <div className="logout-btn" onClick={logoutHandler}>Logout  </div> :
 
-                  <a href="/login">Login</a>
-                </div>
+                    <div className="login-btn">
+
+                      <Link to="/login">Login</Link>
+                    </div>}
 
               </div>
             </div>

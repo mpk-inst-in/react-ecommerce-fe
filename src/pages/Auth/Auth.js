@@ -1,6 +1,7 @@
 import './auth.css';
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from '../../components/Navbar/Navbar';
 
 import { signIn, signUp } from '../../api/auth';
@@ -18,6 +19,10 @@ const Auth = () => {
   const [signupSuccess, setSignupSuccess] = useState(false);
 
   const [authResponse, setAuthResponse] = useState('');
+
+  const navigate = useNavigate()
+
+
 
 
   const toggleHandler = () => {
@@ -49,7 +54,10 @@ const Auth = () => {
 
       const response = await signIn(user);
       console.log(response);
-      alert('User signed in...');
+
+      navigate("/");
+
+      // redirect the user to the landing page!!
 
     } catch (error) {
 
@@ -128,7 +136,7 @@ const Auth = () => {
                   <input type="text" className="form-control" placeholder="Email" autoComplete="off " value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>}
                 <div className="input-group">
-                  <input type="submit" className="form-control btn btn-primary" value={showSignup ? 'Sign Up' : 'Login'}
+                  <input type="submit" className="form-control btn btn-primary" value={showSignup ? 'Sign Up' : 'Log In'}
                     onClick={showSignup ? signupHandler : signInHandler}
 
                   />
