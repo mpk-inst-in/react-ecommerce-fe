@@ -30,7 +30,7 @@ const Navbar = () => {
   const renderComponent = () => {
 
     return (
-      <div className='header'>
+      <div className='header fixed-top'>
         <div className='container'>
           <div className='row'>
             <div className='header-wrapper'>
@@ -43,11 +43,12 @@ const Navbar = () => {
 
                 {
                   user !== 'Guest' ? <div className="logout-btn" onClick={logoutHandler}>Logout  </div> :
-
-                    <div className="login-btn">
-
-                      <Link to="/login">Login</Link>
-                    </div>}
+                    (
+                      <div className="login-btn">
+                        <Link to="/login">Login</Link>
+                      </div>
+                    )
+                }
 
               </div>
             </div>

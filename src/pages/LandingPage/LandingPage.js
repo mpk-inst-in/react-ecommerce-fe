@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { getAllCategories } from '../../api/category';
 
 import './lp.css';
+import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
 
@@ -48,19 +49,27 @@ const LandingPage = () => {
             <div className="col-12">
               <div className="category-list">
                 <div className="category-item">
-                  All Products
+                  <Link to="/products" >All Products</Link>
                 </div>
 
                 {
                   categories.map(category => (
 
                     <div className="category-item" key={category.id}>
-                      {category.name}
+                      <Link to={`/products?categoryId=${category.id}&name=${category.name}`} className="text-white">
+                        {category.name}
+
+                      </Link>
                     </div>
                   )
 
                   )
                 }
+              </div>
+            </div>
+            <div className="col-12">
+              <div className="category-title">
+                Select a category to start shopping
               </div>
             </div>
           </div>
