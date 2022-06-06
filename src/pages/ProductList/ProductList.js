@@ -215,7 +215,7 @@ const ProductList = () => {
 
                       products.map(product => (
 
-                        <Link to="/" className="product-item" key={product.id}>
+                        <Link to={`/products/${product.id}/detail`} className="product-item" key={product.id}>
 
                           <div className="product-img">
 

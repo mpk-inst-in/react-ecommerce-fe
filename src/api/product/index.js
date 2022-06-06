@@ -32,3 +32,37 @@ export const searchProduct = async (searchData) => {
 
 
 }
+
+
+
+export const getProductById = async (id) => {
+
+
+  const URL = `/products/${id}`;
+
+  return AxiosInstance.get(URL);
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

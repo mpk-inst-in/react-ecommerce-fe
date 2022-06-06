@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar/Navbar';
 
 import { signIn, signUp } from '../../api/auth';
 
+import { createCart } from '../../api/cart';
+
 
 const Auth = () => {
 
@@ -55,9 +57,11 @@ const Auth = () => {
       const response = await signIn(user);
       console.log(response);
 
+      //create cart
+      await createCart();
+      // redirect the user to the landing page!!
       navigate("/");
 
-      // redirect the user to the landing page!!
 
     } catch (error) {
 
