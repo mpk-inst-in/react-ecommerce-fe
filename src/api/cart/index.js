@@ -71,7 +71,7 @@ export const getCart = async () => {
 }
 
 
-export const updateCart = async (existingProducts, productAdded) => {
+export const updateCart = async (existingProducts, item, action = "ADD") => {
 
 
   const cartId = localStorage.getItem('cartId');
@@ -87,12 +87,30 @@ export const updateCart = async (existingProducts, productAdded) => {
 
 
 
-  productIds.push(productAdded);
+  if (action === 'ADD') {
 
-  existingProducts.forEach(product => {
 
-    productIds.push(product.id);
-  });
+    productIds.push(item);
+
+    existingProducts.forEach(product => {
+
+      productIds.push(product.id);
+    });
+
+  }
+
+  if (action === 'REMOVE') {
+
+    existingProducts.forEach(product => {
+
+      if (product.id !== item) {
+
+        productIds.push(product.id)
+      }
+
+    })
+
+  }
 
 
   try {
